@@ -35,7 +35,7 @@ fm_ci <- function(df, m2, y, alpha = 0.025){
     reshape2::recast(1 ~ trt + variable, measure.var = c("phat",'n'))%>%
     #dplyr::rename(p_T = T_phat, p_C = C_phat)%>%
     p_rmle(M2 = m2)%>%
-    dplyr::mutate(phat_d = T_phat - C_phat,
+    dplyr::mutate(phat_d = C_phat - T_phat,
            var_d = p_C.rmle*(1-p_C.rmle)/C_n + p_T.rmle*(1-p_T.rmle)/T_n,
            ci_l = phat_d - stats::qnorm(1-alpha)*sqrt(var_d),
            ci_u = phat_d + stats::qnorm(1-alpha)*sqrt(var_d),
